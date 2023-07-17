@@ -31,6 +31,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillResignActive(_ scene: UIScene) {
       
+
+    }
+
+    func sceneDidBecomeActive(_ scene: UIScene) {
+    
+    }
+
+    func sceneWillResignActive(_ scene: UIScene) {
+        
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -38,9 +47,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-       
-    }
 
+    }
 
 }
 

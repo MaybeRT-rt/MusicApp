@@ -14,14 +14,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        window = UIWindow()
+        window = UIWindow(windowScene: windowScene)
         window?.makeKeyAndVisible()
         window?.rootViewController = MainTabBarController()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
+        
+    }
+
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        
+    }
+
+    func sceneWillResignActive(_ scene: UIScene) {
+      
 
     }
 
@@ -38,9 +47,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-    
-    }
 
+    }
 
 }
 

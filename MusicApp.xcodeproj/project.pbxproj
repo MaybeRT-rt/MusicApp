@@ -14,6 +14,7 @@
 		4A22B34A2A658CC600859F68 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A22B3492A658CC600859F68 /* MainTabBarController.swift */; };
 		4A22B34C2A6594EE00859F68 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A22B34B2A6594EE00859F68 /* SearchViewController.swift */; };
 		4A22B3502A65961800859F68 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A22B34F2A65961800859F68 /* LibraryViewController.swift */; };
+		4A22B3542A66843E00859F68 /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A22B3532A66843E00859F68 /* TrackModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		4A22B3492A658CC600859F68 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		4A22B34B2A6594EE00859F68 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4A22B34F2A65961800859F68 /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
+		4A22B3532A66843E00859F68 /* TrackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				4A22B3492A658CC600859F68 /* MainTabBarController.swift */,
 				4A22B34F2A65961800859F68 /* LibraryViewController.swift */,
 				4A22B34B2A6594EE00859F68 /* SearchViewController.swift */,
+				4A22B3532A66843E00859F68 /* TrackModel.swift */,
 				4A22B33E2A658B6800859F68 /* Assets.xcassets */,
 				4A22B3402A658B6800859F68 /* LaunchScreen.storyboard */,
 				4A22B3432A658B6800859F68 /* Info.plist */,
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A22B3362A658B6500859F68 /* AppDelegate.swift in Sources */,
+				4A22B3542A66843E00859F68 /* TrackModel.swift in Sources */,
 				4A22B3502A65961800859F68 /* LibraryViewController.swift in Sources */,
 				4A22B34A2A658CC600859F68 /* MainTabBarController.swift in Sources */,
 				4A22B34C2A6594EE00859F68 /* SearchViewController.swift in Sources */,

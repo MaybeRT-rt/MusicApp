@@ -18,6 +18,9 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     var router: (NSObjectProtocol & SearchRoutingLogic)?
     
     let searchController = UISearchController(searchResultsController: nil)
+    private var searchViewModel = SearchViewModel.init(cell: [])
+    
+    private var timer: Timer?
     
     private lazy var tableView: UITableView = {
         let searchTV = UITableView.init(frame: .zero, style: .grouped)
@@ -66,6 +69,8 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
+        searchController.obscuresBackgroundDuringPresentation = false
+        
         searchController.searchBar.delegate = self
     }
     
@@ -94,8 +99,10 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
         switch viewModel {
         case .some:
             print("viewController .some")
-        case .displayTracks:
+        case .displayTracks(let searchViewModel):
             print("viewController .displayTack")
+            self.searchViewModel = searchViewModel
+            tableView.reloadData()
         }
         
     }
@@ -103,21 +110,26 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
-        interactor?.makeRequest(request: Search.Model.Request.RequestType.some)
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (_) in
+            self.interactor?.makeRequest(request: Search.Model.Request.RequestType.getTracks(searchText: searchText))
+        }
     }
 }
 
 //MARK: - TableView
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return searchViewModel.cell.count
     }
     
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath)
-        cell.textLabel?.text = "\(indexPath)"
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: TrackCell = (tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath)) as! TrackCell
+        let cellViewModel = searchViewModel.cell[indexPath.row]
+        cell.textLabel?.text = "\(cellViewModel.artistName)\n\(cellViewModel.trackName)"
+        cell.textLabel?.numberOfLines = 2
+        cell.imageView?.image = UIImage(named: "bug")
         
         return cell
     }

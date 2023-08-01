@@ -7,21 +7,39 @@
 
 import UIKit
 
+protocol TrackCellViewModel {
+    var iconURLString: String? { get }
+    var trackName: String { get }
+    var artistName: String { get }
+    var collectionName: String { get }
+}
+
 class TrackCell: UITableViewCell {
 
-    private lazy var artistNameLabel: UILabel = {
+    var artistNameLabel: UILabel = {
         var artistName = UILabel()
+        artistName.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        artistName.textColor = .systemGray2
         artistName.translatesAutoresizingMaskIntoConstraints = false
         return artistName
     }()
     
-    private lazy var trackNameLabel: UILabel = {
+    var trackNameLabel: UILabel = {
         var trackName = UILabel()
+        trackName.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         trackName.translatesAutoresizingMaskIntoConstraints = false
         return trackName
     }()
     
-    private lazy var images: UIImageView = {
+    var collectionNameLabel: UILabel = {
+        var collection = UILabel()
+        collection.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        collection.textColor = .systemGray2
+        collection.translatesAutoresizingMaskIntoConstraints = false
+        return collection
+    }()
+    
+     var images: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -42,26 +60,35 @@ class TrackCell: UITableViewCell {
         addSubview(images)
         addSubview(trackNameLabel)
         addSubview(artistNameLabel)
+        addSubview(collectionNameLabel)
     }
     
     func setupConstrain() {
         
         NSLayoutConstraint.activate([
-            images.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            images.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            images.widthAnchor.constraint(equalToConstant: 50),
-            images.heightAnchor.constraint(equalToConstant: 50),
+            images.topAnchor.constraint(equalTo: self.topAnchor, constant: 12),
+            images.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 21),
+            images.widthAnchor.constraint(equalToConstant: 60),
+            images.heightAnchor.constraint(equalToConstant: 60),
             
-            trackNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 27),
-            trackNameLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 132),
-            trackNameLabel.widthAnchor.constraint(equalToConstant: 100),
-            trackNameLabel.heightAnchor.constraint(equalToConstant: 20),
+            trackNameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 13),
+            trackNameLabel.leadingAnchor.constraint(equalTo: images.trailingAnchor, constant: 10),
+            trackNameLabel.widthAnchor.constraint(equalToConstant: 260),
             
-            artistNameLabel.topAnchor.constraint(equalTo: trackNameLabel.safeAreaLayoutGuide.topAnchor, constant: 30),
-            artistNameLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 132),
-            artistNameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            artistNameLabel.heightAnchor.constraint(equalToConstant: 20)
+            artistNameLabel.topAnchor.constraint(equalTo: trackNameLabel.bottomAnchor, constant: 2),
+            artistNameLabel.leadingAnchor.constraint(equalTo: images.trailingAnchor, constant: 10),
+            artistNameLabel.widthAnchor.constraint(equalToConstant: 260),
+            
+            collectionNameLabel.topAnchor.constraint(equalTo: artistNameLabel.bottomAnchor, constant: 3),
+            collectionNameLabel.leadingAnchor.constraint(equalTo: images.trailingAnchor, constant: 10),
+            collectionNameLabel.widthAnchor.constraint(equalToConstant: 260)
         ])
     }
     
+    func set(viewModel: TrackCellViewModel) {
+        trackNameLabel.text = viewModel.trackName
+        artistNameLabel.text = viewModel.artistName
+        collectionNameLabel.text = viewModel.collectionName
+    
+    }
 }

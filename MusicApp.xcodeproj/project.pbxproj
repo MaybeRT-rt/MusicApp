@@ -95,7 +95,6 @@
 				4A9E942D2A784D8800E9BDB9 /* Service */,
 				4A9E94172A7667F300E9BDB9 /* Search */,
 				4A22B34F2A65961800859F68 /* LibraryViewController.swift */,
-				4A22B3592A67DB3300859F68 /* SearchResponse.swift */,
 				4A22B33E2A658B6800859F68 /* Assets.xcassets */,
 				4A22B3402A658B6800859F68 /* LaunchScreen.storyboard */,
 				4A22B3432A658B6800859F68 /* Info.plist */,
@@ -121,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				4A9E94122A725F2800E9BDB9 /* NetworkService.swift */,
+				4A9E94312A79060800E9BDB9 /* Models */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -131,6 +131,14 @@
 				4A9E942F2A784ED800E9BDB9 /* TrackCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		4A9E94312A79060800E9BDB9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4A22B3592A67DB3300859F68 /* SearchResponse.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		F566BA325922545DB4D3578A /* Pods */ = {

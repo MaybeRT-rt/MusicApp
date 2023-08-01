@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+// Протокол для бизнес-логики экрана поиска
 protocol SearchBusinessLogic {
     func makeRequest(request: Search.Model.Request.RequestType)
 }
@@ -19,6 +19,7 @@ class SearchInteractor: SearchBusinessLogic {
     var presenter: SearchPresentationLogic?
     var service: SearchService?
     
+    // Обработка запросов от презентера
     func makeRequest(request: Search.Model.Request.RequestType) {
         if service == nil {
             service = SearchService()
@@ -26,9 +27,9 @@ class SearchInteractor: SearchBusinessLogic {
         
         switch request {
         case .some:
-            print("interactor .some")
             presenter?.presentData(response: Search.Model.Response.ResponseType.some)
         case .getTracks(let searchText):
+            // Запрос на получение треков с помощью сетевого сервиса (networkService)
             networkService.fetchTracks(searchText: searchText) { [weak self] (searchResponse) in
                 self?.presenter?.presentData(response: .presentTracks(searchResponse: searchResponse))
             }

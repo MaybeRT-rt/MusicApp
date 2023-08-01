@@ -35,6 +35,8 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     
     // MARK: Setup
     
+    // Функция настройки VIP-архитектуры
+    
     private func setup() {
         let viewController        = self
         let interactor            = SearchInteractor()
@@ -65,6 +67,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
         setupContrain()
     }
     
+    // Настройка поисковой строки
     private func setupSearchBar() {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -74,8 +77,11 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
         searchController.searchBar.delegate = self
     }
     
+    // Настройка таблицы для отображения результатов поиска
     private func setupTableView() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CellID")
+        
+        tableView.register(TrackCell.self, forCellReuseIdentifier: "CellTrack")
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -95,22 +101,22 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
         ])
     }
     
+    // Обработка данных для отображения в таблице
     func displayData(viewModel: Search.Model.ViewModel.ViewModelData) {
         switch viewModel {
-        case .some:
-            print("viewController .some")
+        case .some: break
         case .displayTracks(let searchViewModel):
-            print("viewController .displayTack")
             self.searchViewModel = searchViewModel
             tableView.reloadData()
         }
         
     }
 }
-
+// Обработка события изменения текста в поисковой строке
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         timer?.invalidate()
+        // Запуск таймера для отложенного выполнения поискового запроса
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (_) in
             self.interactor?.makeRequest(request: Search.Model.Request.RequestType.getTracks(searchText: searchText))
         }
@@ -120,16 +126,20 @@ extension SearchViewController: UISearchBarDelegate {
 //MARK: - TableView
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+      return 84
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchViewModel.cell.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: TrackCell = (tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath)) as! TrackCell
+        let cell: TrackCell = tableView.dequeueReusableCell(withIdentifier: "CellTrack", for: indexPath) as! TrackCell
         let cellViewModel = searchViewModel.cell[indexPath.row]
-        cell.textLabel?.text = "\(cellViewModel.artistName)\n\(cellViewModel.trackName)"
-        cell.textLabel?.numberOfLines = 2
-        cell.imageView?.image = UIImage(named: "bug")
+        cell.images.backgroundColor = .blue
+        cell.set(viewModel: cellViewModel)
         
         return cell
     }

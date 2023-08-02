@@ -8,4 +8,6 @@ target 'MusicApp' do
   # Pods for MusicApp
 pod 'Alamofire'
 
+pod 'SDWebImage', '~> 5.0'
+
 end

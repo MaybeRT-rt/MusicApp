@@ -29,6 +29,8 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
         return searchTV
     }()
     
+    private lazy var footerView = FooterView()
+    
     // MARK: Object lifecycle
     
     
@@ -82,6 +84,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CellID")
         
         tableView.register(TrackCell.self, forCellReuseIdentifier: "CellTrack")
+        tableView.tableFooterView = footerView
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -104,14 +107,17 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     // Обработка данных для отображения в таблице
     func displayData(viewModel: Search.Model.ViewModel.ViewModelData) {
         switch viewModel {
-        case .some: break
         case .displayTracks(let searchViewModel):
             self.searchViewModel = searchViewModel
             tableView.reloadData()
+            footerView.hideLoader()
+        case .displayFooterView:
+            footerView.showLoader()
         }
-        
     }
 }
+
+//MARK: - UISearchBarDelegate
 // Обработка события изменения текста в поисковой строке
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -123,7 +129,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
 }
 
-//MARK: - TableView
+//MARK: - TableView - UITableViewDelegate, UITableViewDataSource
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -142,6 +148,19 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         cell.set(viewModel: cellViewModel)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "Please enter search term above.."
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        
+        return label
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return searchViewModel.cell.count > 0 ? 0 : 250
     }
 }
 

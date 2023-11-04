@@ -1,15 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "library.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "library@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "bug1.jpeg",
+      "filename" : "library@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

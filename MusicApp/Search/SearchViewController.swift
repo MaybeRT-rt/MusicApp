@@ -150,6 +150,14 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cellViewModel = searchViewModel.cell[indexPath.row]
+        print(cellViewModel.trackName)
+        
+        let trackDetailVC = TrackDetailViewController()
+        present(trackDetailVC, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
         label.text = "Please enter search term above.."
